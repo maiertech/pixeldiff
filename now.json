@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "scope": "maiertech",
+  "routes": [
+    {
+      "src": "/api",
+      "methods": ["GET", "POST"],
+      "dest": "/api/pixeldiff.js"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "extends": [
+    "plugin:shopify/esnext",
+    "plugin:shopify/node",
+    "plugin:shopify/jest",
+    "plugin:shopify/prettier"
+  ],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "rules": {
+    "babel/object-curly-spacing": ["error", "always"],
+    "babel/camelcase": "off"
+  }
+}

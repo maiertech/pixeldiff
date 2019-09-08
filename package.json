@@ -1,0 +1,49 @@
+{
+  "private": true,
+  "name": "@maiertech/pixeldiff",
+  "version": "0.0.0",
+  "description": "Capture website screenshot and compare with benchmark screenshot.",
+  "author": "Thilo Maier <git@maier.asia>",
+  "license": "MIT",
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged && lint-staged"
+    }
+  },
+  "scripts": {
+    "start": "now dev",
+    "purge": "rm -rf ./node_modules",
+    "lint": "eslint . --ignore-path .gitignore",
+    "format": "pretty-quick",
+    "test": "jest",
+    "coverage": "jest --collect-coverage",
+    "inspect": "node --inspect-brk node_modules/.bin/jest"
+  },
+  "devDependencies": {
+    "eslint": "^6.1.0",
+    "eslint-plugin-shopify": "^30.0.1",
+    "husky": "^3.0.2",
+    "jest": "^24.8.0",
+    "lint-staged": "^9.2.5",
+    "now": "^16.2.0",
+    "prettier": "^1.17.1",
+    "pretty-quick": "^1.11.0"
+  },
+  "dependencies": {
+    "axios": "^0.19.0",
+    "pixelmatch": "^5.0.2",
+    "pngjs": "^3.4.0",
+    "puppeteer-core": "^1.19.0",
+    "querystring": "^0.2.0",
+    "validator": "^11.1.0"
+  },
+  "engines": {
+    "node": "10.x"
+  }
+}
