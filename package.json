@@ -25,6 +25,14 @@
     "coverage": "jest --collect-coverage",
     "inspect": "node --inspect-brk node_modules/.bin/jest"
   },
+  "dependencies": {
+    "axios": "0.19.0",
+    "pixelmatch": "5.0.2",
+    "pngjs": "3.4.0",
+    "puppeteer-core": "1.19.0",
+    "querystring": "0.2.0",
+    "validator": "11.1.0"
+  },
   "devDependencies": {
     "eslint": "6.3.0",
     "eslint-plugin-shopify": "30.0.1",
@@ -34,14 +42,6 @@
     "now": "16.2.0",
     "prettier": "1.18.2",
     "pretty-quick": "1.11.1"
-  },
-  "dependencies": {
-    "axios": "0.19.0",
-    "pixelmatch": "5.0.2",
-    "pngjs": "3.4.0",
-    "puppeteer-core": "1.19.0",
-    "querystring": "0.2.0",
-    "validator": "11.1.0"
   },
   "engines": {
     "node": "10.x"
