@@ -41,7 +41,7 @@
     "lint-staged": "9.5.0",
     "now": "16.7.0",
     "prettier": "1.19.1",
-    "pretty-quick": "2.0.0"
+    "pretty-quick": "2.0.1"
   },
   "engines": {
     "node": "10.x"
