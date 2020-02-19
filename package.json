@@ -31,7 +31,7 @@
     "express-validator": "^6.4.0",
     "pixelmatch": "5.1.0",
     "pngjs": "3.4.0",
-    "puppeteer-core": "1.20.0"
+    "puppeteer-core": "2.1.1"
   },
   "devDependencies": {
     "eslint": "6.8.0",
