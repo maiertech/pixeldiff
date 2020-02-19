@@ -5,25 +5,24 @@
   "description": "Capture website screenshot and compare with benchmark screenshot.",
   "author": "Thilo Maier <git@maier.asia>",
   "license": "MIT",
-  "lint-staged": {
-    "*.js": [
-      "eslint --fix",
-      "git add"
-    ]
-  },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged && lint-staged"
+      "pre-commit": "lint-staged"
     }
   },
   "scripts": {
     "start": "now dev",
-    "purge": "rm -rf ./node_modules",
-    "lint": "eslint . --ignore-path .gitignore",
-    "format": "pretty-quick",
+    "format": "yarn run format:code && yarn run format:other",
+    "format:code": "yarn run lint:code --fix",
+    "format:other": "yarn run prettier --write",
+    "lint": "yarn run lint:code && yarn run lint:other",
+    "lint:code": "eslint --cache --ext .js,.jsx .",
+    "lint:other": "yarn run prettier --check",
+    "prettier": "prettier \"**/*.{md,css,yaml,yml}\"",
     "test": "jest",
     "coverage": "jest --collect-coverage",
-    "inspect": "node --inspect-brk node_modules/.bin/jest"
+    "inspect": "node --inspect-brk node_modules/.bin/jest",
+    "purge": "rm -rf ./node_modules"
   },
   "dependencies": {
     "axios": "0.19.2",
@@ -41,7 +40,6 @@
     "lint-staged": "10.0.7",
     "now": "17.0.3",
     "prettier": "1.19.1",
-    "pretty-quick": "2.0.1",
     "test-listen": "^1.1.0"
   },
   "engines": {
