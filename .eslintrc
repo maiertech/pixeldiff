@@ -12,6 +12,7 @@
   },
   "rules": {
     "babel/object-curly-spacing": ["error", "always"],
-    "babel/camelcase": "off"
+    "babel/camelcase": "off",
+    "jest/no-try-expect": "off"
   }
 }

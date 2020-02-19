@@ -1,144 +1,166 @@
+const http = require('http');
+
+const listen = require('test-listen');
+const axios = require('axios');
+
 const pixeldiff = require('../api/pixeldiff');
 
+let server;
+let localhost;
+
 describe('pixeldiff API', () => {
-  it('invalid url param', () => {
-    const params = {
-      url: 'invalid',
-      benchmarkImgUrl: 'https://example.com/screenshot.png',
-      device: 'iPhone X',
-    };
-    let request;
-    const response = { json: jest.fn(), status: jest.fn() };
-
-    // Mock GET request.
-    request = {
-      method: 'GET',
-      query: params,
-    };
-    pixeldiff(request, response);
-    expect(response.status).toHaveBeenCalledTimes(1);
-    expect(response.status).toHaveBeenCalledWith(400);
-    expect(response.json).toHaveBeenCalledTimes(1);
-    expect(response.json).toHaveBeenCalledWith([
-      {
-        param: 'url',
-        value: 'invalid',
-        message: 'Invalid URL.',
-      },
-    ]);
-
-    response.json.mockClear();
-    response.status.mockClear();
-
-    // Mock POST request.
-    request = {
-      method: 'GET',
-      query: params,
-    };
-    pixeldiff(request, response);
-    expect(response.status).toHaveBeenCalledTimes(1);
-    expect(response.status).toHaveBeenCalledWith(400);
-    expect(response.json).toHaveBeenCalledTimes(1);
-    expect(response.json).toHaveBeenCalledWith([
-      {
-        param: 'url',
-        value: 'invalid',
-        message: 'Invalid URL.',
-      },
-    ]);
+  beforeAll(async () => {
+    server = http.createServer(pixeldiff);
+    localhost = await listen(server);
   });
 
-  it('invalid benchmarkImgUrl param', () => {
-    const params = {
-      url: 'https://example.com',
-      benchmarkImgUrl: 'invalid',
-      device: 'iPhone X',
-    };
-    let request;
-    const response = { json: jest.fn(), status: jest.fn() };
-
-    // Mock GET request.
-    request = {
-      method: 'GET',
-      query: params,
-    };
-    pixeldiff(request, response);
-    expect(response.status).toHaveBeenCalledTimes(1);
-    expect(response.status).toHaveBeenCalledWith(400);
-    expect(response.json).toHaveBeenCalledTimes(1);
-    expect(response.json).toHaveBeenCalledWith([
-      {
-        param: 'benchmarkImgUrl',
-        value: 'invalid',
-        message: 'Invalid URL.',
-      },
-    ]);
-
-    response.json.mockClear();
-    response.status.mockClear();
-
-    // Mock POST request.
-    request = {
-      method: 'POST',
-      body: params,
-    };
-    pixeldiff(request, response);
-    expect(response.status).toHaveBeenCalledTimes(1);
-    expect(response.status).toHaveBeenCalledWith(400);
-    expect(response.json).toHaveBeenCalledTimes(1);
-    expect(response.json).toHaveBeenCalledWith([
-      {
-        param: 'benchmarkImgUrl',
-        value: 'invalid',
-        message: 'Invalid URL.',
-      },
-    ]);
+  // Workaround for https://github.com/facebook/jest/issues/8554.
+  afterAll(done => {
+    server.close(() => {
+      setTimeout(done, 100);
+    });
   });
 
-  it('invalid device param', () => {
-    const params = {
-      url: 'https://example.com',
-      benchmarkImgUrl: 'https://example.com/screenshot.png',
-      device: 'invalid',
-    };
-    let request;
-    const response = { json: jest.fn(), status: jest.fn() };
+  // Most tests would jest/no-try-expect if it was on:
+  // https://github.com/jest-community/eslint-plugin-jest/blob/master/docs/rules/no-try-expect.md
+  // The suggested alternative with rejects.toThrow does not work.
+  // Tests with expect in catch block need to use expect.assertions to ensure they do not accidentally pass.
 
-    // Mock GET request.
-    request = {
-      method: 'GET',
-      query: params,
-    };
-    pixeldiff(request, response);
-    expect(response.status).toHaveBeenCalledTimes(1);
-    expect(response.status).toHaveBeenCalledWith(400);
-    expect(response.json).toHaveBeenCalledTimes(1);
-    expect(response.json).toHaveBeenCalledWith([
-      {
-        param: 'device',
-        value: 'invalid',
-        message: 'Invalid device.',
-      },
-    ]);
+  it('invalid url param', async () => {
+    expect.assertions(6);
 
-    response.json.mockClear();
-    response.status.mockClear();
+    // Test GET request.
+    try {
+      await axios.get(localhost, {
+        params: {
+          url: 'invalid',
+          benchmarkImgUrl: 'https://example.com/screenshot.png',
+          device: 'iPhone X',
+        },
+      });
+    } catch ({ response }) {
+      expect(response.status).toStrictEqual(422);
+      expect(response.data.errors).toHaveLength(1);
+      expect(response.data.errors).toStrictEqual([
+        {
+          location: 'query',
+          msg: 'Invalid URL',
+          param: 'url',
+          value: 'invalid',
+        },
+      ]);
+    }
 
-    // Mock POST request.
-    request = {
-      method: 'POST',
-      body: params,
-    };
-    pixeldiff(request, response);
-    expect(response.status).toHaveBeenCalledTimes(1);
-    expect(response.status).toHaveBeenCalledWith(400);
-    expect(response.json).toHaveBeenCalledTimes(1);
-    expect(response.json).toHaveBeenCalledWith([
-      {
-        param: 'device',
-        value: 'invalid',
-        message: 'Invalid device.',
-      },
-    ]);
+    // Test POST request.
+    try {
+      await axios.post(localhost, {
+        url: 'invalid',
+        benchmarkImgUrl: 'https://example.com/screenshot.png',
+        device: 'iPhone X',
+      });
+    } catch ({ response }) {
+      expect(response.status).toStrictEqual(422);
+      expect(response.data.errors).toHaveLength(1);
+      expect(response.data.errors).toStrictEqual([
+        {
+          location: 'body',
+          msg: 'Invalid URL',
+          param: 'url',
+          value: 'invalid',
+        },
+      ]);
+    }
+  });
+
+  it('invalid benchmarkImgUrl param', async () => {
+    expect.assertions(6);
+
+    // Test GET request.
+    try {
+      await axios.get(localhost, {
+        params: {
+          url: 'https://example.com',
+          benchmarkImgUrl: 'invalid',
+          device: 'iPhone X',
+        },
+      });
+    } catch ({ response }) {
+      expect(response.status).toStrictEqual(422);
+      expect(response.data.errors).toHaveLength(1);
+      expect(response.data.errors).toStrictEqual([
+        {
+          location: 'query',
+          msg: 'Invalid URL',
+          param: 'benchmarkImgUrl',
+          value: 'invalid',
+        },
+      ]);
+    }
+
+    // Test POST request.
+    try {
+      await axios.post(localhost, {
+        url: 'https://example.com',
+        benchmarkImgUrl: 'invalid',
+        device: 'iPhone X',
+      });
+    } catch ({ response }) {
+      expect(response.status).toStrictEqual(422);
+      expect(response.data.errors).toHaveLength(1);
+      expect(response.data.errors).toStrictEqual([
+        {
+          location: 'body',
+          msg: 'Invalid URL',
+          param: 'benchmarkImgUrl',
+          value: 'invalid',
+        },
+      ]);
+    }
+  });
+
+  it('invalid device param', async () => {
+    expect.assertions(6);
+
+    // Test GET request.
+    try {
+      await axios.get(localhost, {
+        params: {
+          url: 'https://example.com',
+          benchmarkImgUrl: 'https://example.com/screenshot.png',
+          device: 'invalid',
+        },
+      });
+    } catch ({ response }) {
+      expect(response.status).toStrictEqual(422);
+      expect(response.data.errors).toHaveLength(1);
+      expect(response.data.errors).toStrictEqual([
+        {
+          location: 'query',
+          msg: 'Invalid device',
+          param: 'device',
+          value: 'invalid',
+        },
+      ]);
+    }
+
+    // Test POST request.
+    try {
+      await axios.post(localhost, {
+        url: 'https://example.com',
+        benchmarkImgUrl: 'https://example.com/screenshot.png',
+        device: 'invalid',
+      });
+    } catch ({ response }) {
+      expect(response.status).toStrictEqual(422);
+      expect(response.data.errors).toHaveLength(1);
+      expect(response.data.errors).toStrictEqual([
+        {
+          location: 'body',
+          msg: 'Invalid device',
+          param: 'device',
+          value: 'invalid',
+        },
+      ]);
+    }
   });
 });

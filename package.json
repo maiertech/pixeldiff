@@ -27,11 +27,11 @@
   },
   "dependencies": {
     "axios": "0.19.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.4.0",
     "pixelmatch": "5.1.0",
     "pngjs": "3.4.0",
-    "puppeteer-core": "1.20.0",
-    "querystring": "0.2.0",
-    "validator": "11.1.0"
+    "puppeteer-core": "1.20.0"
   },
   "devDependencies": {
     "eslint": "6.8.0",
@@ -41,7 +41,8 @@
     "lint-staged": "10.0.7",
     "now": "16.7.3",
     "prettier": "1.19.1",
-    "pretty-quick": "2.0.1"
+    "pretty-quick": "2.0.1",
+    "test-listen": "^1.1.0"
   },
   "engines": {
     "node": "12.x"
