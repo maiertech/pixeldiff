@@ -26,7 +26,7 @@
     "inspect": "node --inspect-brk node_modules/.bin/jest"
   },
   "dependencies": {
-    "axios": "0.19.0",
+    "axios": "0.19.2",
     "express": "^4.17.1",
     "express-validator": "^6.4.0",
     "pixelmatch": "5.1.0",
