@@ -1,6 +1,11 @@
 {
   "version": 2,
   "scope": "maiertech",
+  "build": {
+    "env": {
+      "NODE_ENV": "production"
+    }
+  },
   "routes": [
     {
       "src": "/api",
