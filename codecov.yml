@@ -1,0 +1,14 @@
+# Partial line coverage: https://docs.codecov.io/docs/node.
+coverage:
+  parsers:
+    javascript:
+      enable_partials: yes
+# Pull request comments: https://docs.codecov.io/docs/pull-request-comments.
+# Emotion example: https://github.com/emotion-js/emotion/blob/master/codecov.yml.
+comment:
+  layout: 'diff, files'
+  behavior: default
+  require_changes: true
+  require_base: no
+  require_head: yes
+  branches: null
