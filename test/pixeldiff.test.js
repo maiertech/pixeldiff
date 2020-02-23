@@ -27,17 +27,17 @@ describe('pixeldiff API', () => {
   // Tests with expect in catch block need to use expect.assertions to ensure they do not accidentally pass.
 
   it('invalid url param', async () => {
+    const params = {
+      url: 'invalid',
+      benchmarkImgUrl: 'https://example.com/screenshot.png',
+      device: 'iPhone X',
+    };
+
     expect.assertions(6);
 
     // Test GET request.
     try {
-      await axios.get(localhost, {
-        params: {
-          url: 'invalid',
-          benchmarkImgUrl: 'https://example.com/screenshot.png',
-          device: 'iPhone X',
-        },
-      });
+      await axios.get(localhost, { params });
     } catch ({ response }) {
       expect(response.status).toStrictEqual(422);
       expect(response.data.errors).toHaveLength(1);
@@ -53,11 +53,7 @@ describe('pixeldiff API', () => {
 
     // Test POST request.
     try {
-      await axios.post(localhost, {
-        url: 'invalid',
-        benchmarkImgUrl: 'https://example.com/screenshot.png',
-        device: 'iPhone X',
-      });
+      await axios.post(localhost, params);
     } catch ({ response }) {
       expect(response.status).toStrictEqual(422);
       expect(response.data.errors).toHaveLength(1);
@@ -119,16 +115,18 @@ describe('pixeldiff API', () => {
   });
 
   it('invalid device param', async () => {
+    const params = {
+      url: 'https://example.com',
+      benchmarkImgUrl: 'https://example.com/screenshot.png',
+      device: 'invalid',
+    };
+
     expect.assertions(6);
 
     // Test GET request.
     try {
       await axios.get(localhost, {
-        params: {
-          url: 'https://example.com',
-          benchmarkImgUrl: 'https://example.com/screenshot.png',
-          device: 'invalid',
-        },
+        params,
       });
     } catch ({ response }) {
       expect(response.status).toStrictEqual(422);
@@ -145,11 +143,7 @@ describe('pixeldiff API', () => {
 
     // Test POST request.
     try {
-      await axios.post(localhost, {
-        url: 'https://example.com',
-        benchmarkImgUrl: 'https://example.com/screenshot.png',
-        device: 'invalid',
-      });
+      await axios.post(localhost, params);
     } catch ({ response }) {
       expect(response.status).toStrictEqual(422);
       expect(response.data.errors).toHaveLength(1);

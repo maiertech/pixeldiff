@@ -11,7 +11,8 @@
     }
   },
   "scripts": {
-    "start": "now dev",
+    "dev": "micro-dev api/pixeldiff.js",
+    "dev:inspect": "node --inspect node_modules/.bin/micro-dev api/pixeldiff.js",
     "format": "yarn run format:code && yarn run format:other",
     "format:code": "yarn run lint:code --fix",
     "format:other": "yarn run prettier --write",
@@ -39,6 +40,8 @@
     "husky": "4.2.3",
     "jest": "25.1.0",
     "lint-staged": "10.0.7",
+    "micro": "9.3.4",
+    "micro-dev": "3.0.0",
     "now": "17.0.4",
     "prettier": "1.19.1",
     "test-listen": "1.1.0"
