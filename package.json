@@ -20,8 +20,8 @@
     "lint:other": "yarn run prettier --check",
     "prettier": "prettier \"**/*.{md,css,yaml,yml}\"",
     "test": "jest",
-    "coverage": "jest --collect-coverage",
-    "inspect": "node --inspect-brk node_modules/.bin/jest",
+    "test:codecov": "jest && codecov",
+    "test:inspect": "node --inspect-brk node_modules/.bin/jest",
     "purge": "rm -rf ./node_modules"
   },
   "dependencies": {
@@ -33,6 +33,7 @@
     "puppeteer-core": "2.1.1"
   },
   "devDependencies": {
+    "codecov": "^3.6.5",
     "eslint": "6.8.0",
     "eslint-plugin-shopify": "35.0.0",
     "husky": "4.2.3",
