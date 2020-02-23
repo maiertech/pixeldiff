@@ -26,14 +26,14 @@
   },
   "dependencies": {
     "axios": "0.19.2",
-    "express": "^4.17.1",
-    "express-validator": "^6.4.0",
+    "express": "4.17.1",
+    "express-validator": "6.4.0",
     "pixelmatch": "5.1.0",
     "pngjs": "3.4.0",
     "puppeteer-core": "2.1.1"
   },
   "devDependencies": {
-    "codecov": "^3.6.5",
+    "codecov": "3.6.5",
     "eslint": "6.8.0",
     "eslint-plugin-shopify": "35.0.0",
     "husky": "4.2.3",
@@ -41,7 +41,7 @@
     "lint-staged": "10.0.7",
     "now": "17.0.4",
     "prettier": "1.19.1",
-    "test-listen": "^1.1.0"
+    "test-listen": "1.1.0"
   },
   "engines": {
     "node": "12.x"
