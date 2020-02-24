@@ -132,7 +132,11 @@ app.all('*', validations, async (request, response, next) => {
   response.status(200);
   return response.json({
     diff: mismatchedPixels > 0,
-    diffImgUrl: `https://pixeldiff.maier.tech/api?${querystring.stringify({
+    // On Zeit Now request is forwarded from where SSL is terminated.
+    // Look at x-forwarded-* first and then at alternatives.
+    diffImgUrl: `${request.headers['x-forwarded-proto'] ||
+      request.protocol}://${request.headers['x-forwarded-host'] ||
+      request.headers.host}${request.path}?${querystring.stringify({
       url,
       benchmarkImgUrl,
       device,
