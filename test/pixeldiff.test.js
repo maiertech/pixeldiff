@@ -157,4 +157,18 @@ describe('pixeldiff API', () => {
       ]);
     }
   });
+
+  it('comparison that results in a diff', async () => {
+    // Test POST request only.
+    const params = {
+      benchmarkImgUrl: 'https://screenshots.maier.tech/header/iphone-x.png',
+      url: 'https://www.google.com',
+      device: 'iPhone X',
+    };
+    const response = await axios.post(localhost, params);
+    expect(response.data).toStrictEqual({
+      diff: true,
+      diffImgUrl: `${localhost}/?url=https%3A%2F%2Fwww.google.com&benchmarkImgUrl=https%3A%2F%2Fscreenshots.maier.tech%2Fheader%2Fiphone-x.png&device=iPhone%20X`,
+    });
+  });
 });
