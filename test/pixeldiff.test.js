@@ -39,7 +39,7 @@ describe('pixeldiff API', () => {
     try {
       await axios.get(localhost, { params });
     } catch ({ response }) {
-      expect(response.status).toStrictEqual(422);
+      expect(response.status).toStrictEqual(400);
       expect(response.data.errors).toHaveLength(1);
       expect(response.data.errors).toStrictEqual([
         {
@@ -55,7 +55,7 @@ describe('pixeldiff API', () => {
     try {
       await axios.post(localhost, params);
     } catch ({ response }) {
-      expect(response.status).toStrictEqual(422);
+      expect(response.status).toStrictEqual(400);
       expect(response.data.errors).toHaveLength(1);
       expect(response.data.errors).toStrictEqual([
         {
@@ -81,7 +81,7 @@ describe('pixeldiff API', () => {
         },
       });
     } catch ({ response }) {
-      expect(response.status).toStrictEqual(422);
+      expect(response.status).toStrictEqual(400);
       expect(response.data.errors).toHaveLength(1);
       expect(response.data.errors).toStrictEqual([
         {
@@ -101,7 +101,7 @@ describe('pixeldiff API', () => {
         device: 'iPhone X',
       });
     } catch ({ response }) {
-      expect(response.status).toStrictEqual(422);
+      expect(response.status).toStrictEqual(400);
       expect(response.data.errors).toHaveLength(1);
       expect(response.data.errors).toStrictEqual([
         {
@@ -129,7 +129,7 @@ describe('pixeldiff API', () => {
         params,
       });
     } catch ({ response }) {
-      expect(response.status).toStrictEqual(422);
+      expect(response.status).toStrictEqual(400);
       expect(response.data.errors).toHaveLength(1);
       expect(response.data.errors).toStrictEqual([
         {
@@ -145,7 +145,7 @@ describe('pixeldiff API', () => {
     try {
       await axios.post(localhost, params);
     } catch ({ response }) {
-      expect(response.status).toStrictEqual(422);
+      expect(response.status).toStrictEqual(400);
       expect(response.data.errors).toHaveLength(1);
       expect(response.data.errors).toStrictEqual([
         {

@@ -50,11 +50,9 @@ curl --request POST \
 
 ## Errors
 
-For status codes `400` and `500` it returns an array of error objects. The array length is normally one. In case of validation errors the array can have length greater than one. Each error object has the following properties:
-
-- `param` (optional): Request parameter for which the error occured.
-- `value` (optional): Value of the request parameter for which the error occured.
-- `message` (required): Error message.
+| Status Code         | Description                  | Returns                                                                                   |
+| :------------------ | :--------------------------- | :---------------------------------------------------------------------------------------- |
+| `400` (Bad Request) | Parameter validation failed. | Array of error objects with the following properties `location`, `msg`, `param`, `value`. |
 
 ## Running the Pixeldiff API locally
 
@@ -72,4 +70,4 @@ http://localhost:3000
 
 (or any other path such as http://localhost:3000/api) using [micro-dev](https://github.com/zeit/micro-dev). In order to debug the lambda, run `yarn run dev:inspect`.
 
-You can also use `now dev` to launch the lambda locally by running `npx now dev`. This emulates Zeit Now's production environment, but you loose your ability to debug.
+You can also use `now dev` to launch the lambda locally by running `npx now dev`. This emulates Zeit Now's production environment, but you loose the ability to debug.

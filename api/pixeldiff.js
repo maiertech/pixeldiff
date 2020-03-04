@@ -32,10 +32,11 @@ const validations = [
 
 // Restrict methods to GET and POST on Zeit Now.
 app.all('*', validations, async (request, response, next) => {
+  next(new Error('This is a rogue error'));
   // Validate params.
   const errors = validationResult(request);
   if (!errors.isEmpty()) {
-    return response.status(422).json({ errors: errors.array() });
+    return response.status(400).json({ errors: errors.array() });
   }
 
   // Read params.
