@@ -29,7 +29,7 @@
     "axios": "0.19.2",
     "express": "4.17.1",
     "express-validator": "6.4.0",
-    "pixelmatch": "5.1.0",
+    "pixelmatch": "5.2.0",
     "pngjs": "3.4.0",
     "puppeteer-core": "2.1.1"
   },
