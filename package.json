@@ -30,7 +30,7 @@
     "express": "4.17.1",
     "express-validator": "6.4.0",
     "pixelmatch": "5.1.0",
-    "pngjs": "3.4.0",
+    "pngjs": "5.0.0",
     "puppeteer-core": "2.1.1"
   },
   "devDependencies": {
