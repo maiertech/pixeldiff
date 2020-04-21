@@ -43,7 +43,7 @@
     "micro": "9.3.4",
     "micro-dev": "3.0.0",
     "now": "17.1.1",
-    "prettier": "1.19.1",
+    "prettier": "2.0.5",
     "test-listen": "1.1.0"
   },
   "engines": {
